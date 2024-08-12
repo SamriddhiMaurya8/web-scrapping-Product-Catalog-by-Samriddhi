@@ -90,14 +90,20 @@ function categoryButton(category, onClick) {
 }
 
 function addCategoryButtons(categories) {
-  productButtons.innerHTML = ''; 
-  categories.forEach(category => {
-    const button = categoryButton(category, () => {
-      FetchProducts(category === 'All' ? laptops : laptops.filter(product => product.ram === category));
-    });
-    productButtons.appendChild(button);
-  });
-}
+    productButtons.innerHTML = '';
+    for (let i = 0; i < categories.length; i++) {
+      const category = categories[i];
+      const button = categoryButton(category, () => {
+        const filteredLaptops = category === 'All' ? laptops : laptops.filter(product => product.ram === category) ;
+        FetchProducts(filteredLaptops);
+      });
+      productButtons.appendChild(button);
+    }
+  }
+  
+
+  
+ 
 
 
 
@@ -107,7 +113,7 @@ fetchProductData();
 
 filterInput.addEventListener('keyup', (e) => {
   const text = e.target.value.toLowerCase();
-  if (laptops) { 
+  
     FetchProducts(laptops.filter(product => product.ram.toLowerCase().includes(text)));
-  }
+  
 });
